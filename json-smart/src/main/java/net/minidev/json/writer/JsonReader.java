@@ -32,7 +32,7 @@ public class JsonReader {
 
 	public JsonReaderI<JSONAwareEx> DEFAULT;
 	public JsonReaderI<JSONAwareEx> DEFAULT_ORDERED;
-	
+
 	public JsonReader() {
 		cache = new ConcurrentHashMap<Type, JsonReaderI<?>>(100);
 
@@ -64,11 +64,29 @@ public class JsonReader {
 
 		this.DEFAULT = new DefaultMapper<JSONAwareEx>(this);
 		this.DEFAULT_ORDERED = new DefaultMapperOrdered(this);
-		
+
 		cache.put(JSONAwareEx.class, this.DEFAULT);
 		cache.put(JSONAware.class, this.DEFAULT);
 		cache.put(JSONArray.class, this.DEFAULT);
 		cache.put(JSONObject.class, this.DEFAULT);
+	}
+
+	/**
+	 * remap field name in custom classes
+	 * 
+	 * @param fromJson
+	 *            field name in json
+	 * @param toJava
+	 *            field name in Java
+	 * @since 2.1.1
+	 */
+	public <T> void remapField(Class<T> type, String fromJson, String toJava) {
+		JsonReaderI<T> map = this.getMapper(type);
+		if (!(map instanceof MapperRemapped)) {
+			map = new MapperRemapped<T>(map);
+			registerReader(type, map);
+		}
+		((MapperRemapped<T>) map).renameField(fromJson, toJava);
 	}
 
 	public <T> void registerReader(Class<T> type, JsonReaderI<T> mapper) {

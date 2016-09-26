@@ -29,7 +29,7 @@ public class JSONStyle {
 	/**
 	 * for advanced usage sample see
 	 * 
-	 * @see net.minidev.json.test.TestCompressorFlags
+	 * #see net.minidev.json.test.TestCompressorFlags
 	 */
 	public final static int FLAG_PROTECT_KEYS = 1;
 	public final static int FLAG_PROTECT_4WEB = 2;
@@ -106,7 +106,7 @@ public class JSONStyle {
 	public boolean protect4Web() {
 		return _protect4Web;
 	}
-	
+
 	public boolean ignoreNull() {
 		return _ignore_null;
 	}
@@ -122,7 +122,7 @@ public class JSONStyle {
 	public boolean mustProtectValue(String s) {
 		return mpValue.mustBeProtect(s);
 	}
-	
+
 	public void writeString(Appendable out, String value) throws IOException {
 		if (!this.mustProtectValue(value))
 			out.append(value);
@@ -136,7 +136,7 @@ public class JSONStyle {
 	public void escape(String s, Appendable out) {
 		esc.escape(s, out);
 	}
-	
+
 	/**
 	 * begin Object
 	 */

@@ -2,18 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.minidev</groupId>
-	<artifactId>parent</artifactId>
-	<version>2.1.0</version>
+	<artifactId>minidev-parent</artifactId>
+	<version>2.3-SNAPSHOT</version>
 	<name>Minidev super pom</name>
 	<description>minidev common properties.</description>
 	<packaging>pom</packaging>
 	<url>http://www.minidev.net/</url>
-
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
-	</parent>
 
 	<organization>
 		<name>Chemouni Uriel</name>
@@ -25,7 +19,7 @@
 			<id>uriel</id>
 			<name>Uriel Chemouni</name>
 			<email>uchemouni@gmail.com</email>
-			<timezone>GMT+1</timezone>
+			<timezone>GMT-7</timezone>
 			<roles>
 			</roles>
 		</developer>
@@ -48,30 +42,24 @@
 
 	<build>
 		<plugins>
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.apache.felix</groupId> -->
-<!-- 				<artifactId>maven-bundle-plugin</artifactId> -->
-<!-- 				<extensions>true</extensions> -->
-<!-- 				<version>2.3.7</version> -->
-<!-- 			</plugin> -->
-			<plugin>
+			<plugin> <!-- updated on 29/07/2015 -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>2.1.2</version>
+				<version>2.4</version>
 				<executions>
 					<execution>
 						<id>bind-sources</id>
 						<goals>
-							<goal>jar</goal>
+							<goal>jar-no-fork</goal>
 						</goals>
 					</execution>
 				</executions>
 			</plugin>
 
-			<plugin>
+			<plugin> <!-- updated on 29/10/2015 -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.3</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
 					<source>1.6</source>
@@ -83,19 +71,19 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
+			<plugin> <!-- updated on 29/10/2015 -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.5</version>
+				<version>2.7</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 
-			<plugin>
+			<plugin> <!-- updated on 29/10/2015 -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.3.1</version>
+				<version>2.6</version>
 				<configuration>
 					<excludes>
 						<exclude>**/.svn/*</exclude>
@@ -104,17 +92,15 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
+			<plugin> <!-- updated on 29/07/2015 -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.8</version>
-<!-- ONLY NEEDED With jdk 1.7+ -->
-<!--
+				<version>2.10.3</version>
+				<!-- ONLY NEEDED With jdk 1.7+ -->
 				<configuration>
 					<failOnError>false</failOnError>
-					<additionalparam>-Xdoclint:none</additionalparam>
+					<!-- <additionalparam>-Xdoclint:none</additionalparam> -->
 				</configuration>
--->
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -136,12 +122,12 @@
 
 	<reporting>
 		<plugins>
-			<plugin>
+			<plugin> <!-- updated on 29/10/2015 -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.6</version>
+				<version>2.17</version>
 				<configuration>
-					<configLocation>config/sun_checks.xml</configLocation>
+					<configLocation>google_checks.xml</configLocation>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -153,7 +139,8 @@
 		<!-- <module>../csv</module> -->
 		<!-- <module>../db</module> -->
 		<!-- <module>../html</module> -->
-		<module>../asm</module>
+		<module>../accessors-smart</module>
+		<module>../json-smart-action</module>
 		<module>../json-smart</module>
 		<!-- <module>../json-smart-mini</module> -->
 		<!-- <module>../minibase</module> -->
@@ -164,21 +151,16 @@
 	</modules>
 
 	<distributionManagement>
-		<!-- My project's Sonatype repository to be used by the release plugin -->
-		<repository>
-			<id>sonatype-nexus-staging</id>
-			<name>Nexus Release Repository</name>
-			<url>
-http://oss.sonatype.org/service/local/staging/deploy/maven2
-</url>
-		</repository>
 		<snapshotRepository>
-			<id>sonatype-nexus-snapshots</id>
-			<name>My Nexus Snapshots Repository</name>
-			<url>
-https://oss.sonatype.org/content/repositories/snapshots
-</url>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+		<!-- <snapshotRepository> <id>ossrh</id> <url>https://oss.sonatype.org/content/repositories/snapshots</url> 
+			</snapshotRepository> -->
 	</distributionManagement>
 
 	<profiles>
@@ -192,7 +174,8 @@ https://oss.sonatype.org/content/repositories/snapshots
 				</property>
 			</activation>
 			<properties>
-				<gpg.keyname>2C8DF6EC</gpg.keyname>
+				<gpg.keyname>8E322ED0</gpg.keyname>
+				<!-- 2C8DF6EC Loosed Key -->
 				<!-- <gpg.keyname>Uriel Chemouni (dev) <uchemouni@gmail.com></gpg.keyname> -->
 				<!-- GPG Key ID to use for signing -->
 			</properties>
@@ -209,11 +192,11 @@ https://oss.sonatype.org/content/repositories/snapshots
 						- -sign - -detach-sign -a target/dbunit-embeddedderby-parenttest.jar Note: 
 						"mvn gpg:sign" results in NPE with v 1.o-a.-4, use "mvn package gpg:sign" 
 						instead; see the issue MGPG-18 -->
-					<plugin>
+					<plugin> <!-- updated on 29/07/2015 -->
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<!-- <version>1.0-alpha-4</version> -->
-						<version>1.2</version>
+
+						<version>1.6</version>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
@@ -244,7 +227,15 @@ https://oss.sonatype.org/content/repositories/snapshots
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-release-plugin</artifactId>
-						<version>2.1</version>
+						<version>2.5.2</version>
+						<configuration>
+							<mavenExecutorId>forked-path</mavenExecutorId>
+							<arguments>-Psonatype-oss-release</arguments>
+							<autoVersionSubmodules>false</autoVersionSubmodules>
+							<useReleaseProfile>false</useReleaseProfile>
+							<releaseProfiles>release</releaseProfiles>
+							<goals>deploy</goals>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
@@ -274,8 +265,13 @@ https://oss.sonatype.org/content/repositories/snapshots
 			</dependency>
 			<dependency>
 				<groupId>net.minidev</groupId>
-				<artifactId>asm</artifactId>
-				<version>1.0.2</version>
+				<artifactId>json-smart-action</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.minidev</groupId>
+				<artifactId>accessors-smart</artifactId>
+				<version>1.1</version>
 			</dependency>
 			<dependency>
 				<groupId>net.minidev</groupId>
@@ -285,7 +281,7 @@ https://oss.sonatype.org/content/repositories/snapshots
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>3.8.2</version>
+				<version>4.12</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

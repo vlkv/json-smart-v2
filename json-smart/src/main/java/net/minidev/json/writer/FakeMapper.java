@@ -1,5 +1,6 @@
 package net.minidev.json.writer;
 
+
 /*
  *    Copyright 2011 JSON-SMART authors
  *

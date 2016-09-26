@@ -30,8 +30,8 @@ import net.minidev.json.reader.JsonWriter;
 import net.minidev.json.reader.JsonWriterI;
 import net.minidev.json.writer.CompessorMapper;
 import net.minidev.json.writer.FakeMapper;
-import net.minidev.json.writer.JsonReaderI;
 import net.minidev.json.writer.JsonReader;
+import net.minidev.json.writer.JsonReaderI;
 import net.minidev.json.writer.UpdaterMapper;
 
 /**
@@ -539,6 +539,15 @@ public class JSONValue {
 	 * deserialisation class Data
 	 */
 	public final static JsonReader defaultReader = new JsonReader();
+
+	/**
+	 * remap field from java to json. 
+	 * @since 2.1.1
+	 */
+	public static <T> void remapField(Class<T> type, String jsonFieldName, String javaFieldName) {
+		defaultReader.remapField(type, jsonFieldName, javaFieldName);
+		defaultWriter.remapField(type, javaFieldName, jsonFieldName);
+	}
 
 	/**
 	 * Register a serializer for a class.
