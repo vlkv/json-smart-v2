@@ -67,12 +67,12 @@
 	</scm>
 	<distributionManagement>
 		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<id>tradingview</id>
+			<url>https://artifactory.tradingview.com/artifactory/mvn-repository</url>
 		</snapshotRepository>
 		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+			<id>tradingview</id>
+			<url>https://artifactory.tradingview.com/artifactory/mvn-repository</url>
 		</repository>
 	</distributionManagement>
 	<profiles>

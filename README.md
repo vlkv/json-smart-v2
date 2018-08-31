@@ -20,6 +20,24 @@ So I do not use my json-smart anymore. I had fun with this project. If you want 
 
 
 
+## HOW TO DEPLOY v2.3-patched to your custom repository
+* Create/edit `~/.m2/settings.xml`, put there login password to your repository, e.g.
+```
+<settings>
+	<servers>
+		<server>
+			<id>your_repo_id</id>
+			<username>login</username>
+			<password>password</password>
+		</server>
+	</servers>
+</settings>
+```
+* Deploy with command:
+```
+mvn deploy -Dmaven.test.skip=true -DartifactId=json-smart
+```
+NOTE: You shouldn't skip tests... But if they fail, you may skip them at your own risk.
 
 
 # Changelog
